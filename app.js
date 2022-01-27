@@ -1,8 +1,31 @@
 const express=require('express')
+const morgan=require('morgan')
+
 const app=express()
 
+function customMiddleware(req, res, next){
+    if(req.url=='/help'){
+        res.send('<h1>Sorry, Page is blocked by admin.</h1>')
+    }
+    console.log('I am logged, called as middleware, url:', req.url)
+    next()
+}
 
-app.get('/json',(req,res)=>{
+function tinyLogger(){
+    return (req, res, next)=>{
+        console.log(`${req.method} - ${req.url}`)
+        next()
+    }
+}
+
+const mw=[customMiddleware,tinyLogger()]
+
+// app.use(morgan('dev'))
+// app.use(customMiddleware)
+app.use(mw)
+
+
+app.get('/json',morgan('dev'), morgan('tiny'), (req,res)=>{
     res.json({
         message : "I'm response as a json object."
     })
