@@ -4,7 +4,7 @@
   "description": "Hi, I'm learning nodejs from stacklearner course name \"Dive into NodeJS\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/fsd-ohidur/nodejs-learn/issues"
   },
-  "homepage": "https://github.com/fsd-ohidur/nodejs-learn#readme"
+  "homepage": "https://github.com/fsd-ohidur/nodejs-learn#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
