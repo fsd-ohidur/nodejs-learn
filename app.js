@@ -1,5 +1,8 @@
 const express=require('express')
 const morgan=require('morgan')
+const userRoute=require('./userRoute')
+const postRoute=require('./postRoute')
+const contactRoute=require('./contactRoute')
 
 const app=express()
 
@@ -19,10 +22,17 @@ function tinyLogger(){
 }
 
 const mw=[customMiddleware,tinyLogger()]
-
 // app.use(morgan('dev'))
 // app.use(customMiddleware)
 app.use(mw)
+
+// User Router
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
+app.use('/user',userRoute)
+app.use('/posts',postRoute)
+app.use('/contact',contactRoute)
+// User Router End
 
 
 app.get('/json',morgan('dev'), morgan('tiny'), (req,res)=>{
@@ -30,21 +40,20 @@ app.get('/json',morgan('dev'), morgan('tiny'), (req,res)=>{
         message : "I'm response as a json object."
     })
 })
-app.get('/user/:id',(req,res)=>{
-    res.send('<h1>User Id: '+req.params.id+'</h1>')
-})
 app.get('/about',(req,res)=>{
     res.send('<h1>This is about page</h1>')
-})
-app.get('/contact',(req,res)=>{
-    res.send('<h1>This is contact page</h1>')
 })
 app.get('/help',(req,res)=>{
     res.send('<h1>This is help page</h1>')
 })
+
 app.get('/',(req,res)=>{
     res.send('<h1>I am listening</h1>')
 })
+app.get('*',()=>{
+    res.send('<h1>Please use the correct route</h1>')
+})
+
 
 const PORT = process.env.PORT||8080
 app.listen(PORT,()=>{
