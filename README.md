@@ -27,3 +27,9 @@ app.get('/', morgan('dev'), (req,res)=>{
 - added postRoute
 - added contactRoute as sample route project where uses following verbs: GET, POST, PUT, DELETE 
 
+## Template Engine -- use EJS
+- Create view folder then create ejs pages as sub-item
+- html pages extension change to ejs
+- <% %> use as controlling syntax like ASP
+- extension pages also .ejs file
+- can include extension page to main pages using <%- include('../folder/file.ejs')%>
