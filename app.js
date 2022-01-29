@@ -5,11 +5,12 @@ const postRoute=require('./postRoute')
 const contactRoute=require('./contactRoute')
 
 const app=express()
+app.set('view engine', 'ejs')
 
 function customMiddleware(req, res, next){
-    if(req.url=='/help'){
-        res.send('<h1>Sorry, Page is blocked by admin.</h1>')
-    }
+    // if(req.url=='/help'){
+    //     res.send('<h1>Sorry, Page is blocked by admin.</h1>')
+    // }
     console.log('I am logged, called as middleware, url:', req.url)
     next()
 }
@@ -41,19 +42,34 @@ app.get('/json',morgan('dev'), morgan('tiny'), (req,res)=>{
     })
 })
 app.get('/about',(req,res)=>{
-    res.send('<h1>This is about page</h1>')
+    res.render('pages/about',{title:'About page'})
 })
 app.get('/help',(req,res)=>{
-    res.send('<h1>This is help page</h1>')
+    res.render('pages/help',{title:'Help page'})
 })
 
 app.get('/',(req,res)=>{
-    res.send('<h1>I am listening</h1>')
+    let post={
+        title: 'Test title',
+        body: 'Test body',
+        published:true
+    }
+    let tutorials=[
+        {
+            title: 'Data Structure and Algorithm',
+            website: 'udemy.com'
+        },
+        {
+            title: 'Dive into nodejs',
+            website: 'Stack learner'
+        },
+        {
+            title: 'Introduction to python',
+            website: 'Data Camp'
+        }
+    ]
+    res.render('pages/index',{title:'Work with EJS - Template engine ', post, tutorials})
 })
-app.get('*',()=>{
-    res.send('<h1>Please use the correct route</h1>')
-})
-
 
 const PORT = process.env.PORT||8080
 app.listen(PORT,()=>{

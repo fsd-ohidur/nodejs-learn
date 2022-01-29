@@ -1,0 +1,19 @@
+<%- include('../partials/header.ejs')%>
+<%- include('../partials/nav.ejs')%>
+<h1><%=title%></h1>
+<p>
+    This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.This is a dummy data.
+</p>
+<br/><br/>
+
+<h2>Template engine output</h2>
+<hr/>
+<% if(post.published){ %>
+    <h3>Title: <%=post.title%></h3>
+    <p>Body: <%=post.body%></p>
+<% } %>
+
+<% for (let tutorial of tutorials) { %>
+    <h2>Title: <%= tutorial.title %>, Provides By - <%= tutorial.website %> </h2>
+<% } %>
+<%- include('../partials/footer.ejs')%>
